@@ -1,4 +1,5 @@
 require('should');
+
 const { get } = require('axios');
 const URL_ONE = 'https://kodaktor.ru/api2/there/';
 const URL_TWO = 'https://kodaktor.ru/api2/andba/';
@@ -9,6 +10,7 @@ cases.forEach((v)=>{
     const guess_one = (-24+Math.sqrt(24**2-36*(15-semi_guess)))/36;
     const guess_two = (-24-Math.sqrt(24**2-36*(15-semi_guess)))/36;
     const guess = Math.max(guess_one, guess_two);
+
     describe ('Отправил на первый адрес: ' + v, function() {
         it ('Ожидаем от первого: ' + semi_guess, async function () {
             const {data: semi_result} = await get(URL_ONE+v);
@@ -16,6 +18,7 @@ cases.forEach((v)=>{
             solver.should.equal(true);
             console.log('Отправил на второй адрес: ' + semi_result);
         });
+        
         it ('Ожидаем от второго: ' + guess, async function () {
             const {data: semi_result} = await get(URL_ONE+v);
             const {data: result} = await get(URL_TWO+semi_result);
